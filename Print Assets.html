@@ -1,0 +1,1449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SoFlo UnderPressure — Print Assets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Limelight&family=Poiret+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Major+Mono+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral: #E8614A;
+    --peach: #E8968E;
+    --teal-deep: #0B2A34;
+    --teal-mid: #0E7E82;
+    --cream: #F5EAD2;
+    --gold: #D6A84E;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'DM Sans', system-ui, sans-serif; color: #eee; }
+
+  /* ----- Print board shared ----- */
+  .board {
+    position: relative;
+    background: var(--cream);
+    color: var(--teal-deep);
+    overflow: hidden;
+  }
+  .grain::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    opacity: 0.10; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2.5 -1'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    z-index: 50;
+  }
+
+  /* =========================================================
+     FLYER  — 8.5 × 11 in  @ 96 DPI = 816 × 1056
+     ========================================================= */
+  .flyer {
+    width: 816px; height: 1056px;
+  }
+  .flyer .header-rail {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 40px 16px;
+    font-family: 'Major Mono Display', monospace;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    border-bottom: 1px solid var(--teal-deep);
+  }
+  .flyer .header-rail .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral); margin-right: 8px; vertical-align: 1px;
+  }
+  .flyer .headline {
+    padding: 40px 56px 0;
+    position: relative;
+  }
+  .flyer .eyebrow {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--coral);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .flyer .eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--coral); }
+  .flyer h1 {
+    font-family: 'Limelight', serif;
+    font-weight: 400;
+    font-size: 156px;
+    line-height: 0.84;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    margin: 12px 0 0;
+  }
+  .flyer h1 .under {
+    display: block;
+    font-family: 'Poiret One', sans-serif;
+    font-style: italic;
+    font-size: 90px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin-top: -6px;
+  }
+  .flyer h1 .pressure {
+    display: block;
+    color: var(--coral);
+  }
+
+  /* Sunset band with surfer */
+  .flyer .scene {
+    position: relative;
+    margin-top: 28px;
+    height: 290px;
+    overflow: hidden;
+    border-top: 2px solid var(--teal-deep);
+    border-bottom: 2px solid var(--teal-deep);
+    background: linear-gradient(180deg,
+      var(--teal-deep) 0%,
+      var(--teal-mid) 20%,
+      var(--gold) 44%,
+      var(--coral) 65%,
+      var(--peach) 100%);
+  }
+  .flyer .scene .sun {
+    position: absolute;
+    left: 50%; bottom: 22%;
+    width: 360px; height: 360px;
+    transform: translate(-50%, 50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%, #FFF3D6 0%, #F5EAD2 15%, #D6A84E 45%, #E8614A 80%);
+    box-shadow: 0 0 50px rgba(232,97,74,0.5);
+  }
+  .flyer .scene .sun-stripes {
+    position: absolute;
+    left: 50%; bottom: 22%;
+    width: 360px; height: 210px;
+    transform: translate(-50%, -10px);
+    overflow: hidden;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0 14px,
+      rgba(11,42,52,0.4) 14px 18px
+    );
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    clip-path: circle(50% at 50% 100%);
+  }
+  .flyer .scene .horizon {
+    position: absolute; left: 0; right: 0; bottom: 22%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cream) 30%, #fff 50%, var(--cream) 70%, transparent);
+    box-shadow: 0 0 18px 4px rgba(245,234,210,0.6);
+  }
+  .flyer .scene .reflection {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 22%;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        transparent 0 5px,
+        rgba(245,234,210,0.3) 5px 6px,
+        transparent 6px 12px
+      ),
+      linear-gradient(180deg, rgba(232,97,74,0.0), rgba(14,126,130,0.85));
+  }
+  .flyer .scene .rays {
+    position: absolute;
+    left: 50%; bottom: 22%;
+    width: 800px; height: 800px;
+    transform: translate(-50%, 40%);
+    pointer-events: none;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    color: var(--gold);
+  }
+
+  /* Surfer + wand svg sized large for the flyer */
+  .flyer .surfer-scene {
+    position: absolute;
+    left: 50%; bottom: 18%;
+    transform: translateX(-50%);
+    width: 620px;
+    filter: drop-shadow(0 5px 0 rgba(11,42,52,0.2));
+    z-index: 3;
+  }
+
+  /* Palm silhouettes */
+  .flyer .scene .palm {
+    position: absolute; bottom: 0;
+    color: var(--teal-deep);
+    opacity: 0.95;
+  }
+  .flyer .scene .palm.l { left: -30px; width: 200px; }
+  .flyer .scene .palm.r { right: -40px; width: 220px; transform: scaleX(-1); }
+
+  /* Services block */
+  .flyer .services {
+    padding: 34px 56px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-bottom: 2px solid var(--teal-deep);
+  }
+  .flyer .services .svc {
+    padding: 14px 14px 14px 0;
+    border-right: 1px solid rgba(11,42,52,0.22);
+  }
+  .flyer .services .svc:last-child { border-right: none; }
+  .flyer .services .svc:nth-child(n+4) { border-top: 1px solid rgba(11,42,52,0.22); padding-top: 18px; margin-top: 8px; }
+  .flyer .services .num {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: var(--coral);
+    margin-bottom: 4px;
+  }
+  .flyer .services .name {
+    font-family: 'Limelight', serif;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: var(--teal-deep);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .flyer .services .desc {
+    margin-top: 4px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: rgba(11,42,52,0.75);
+    padding-right: 14px;
+  }
+
+  /* Pitch strip */
+  .flyer .pitch {
+    padding: 24px 56px 20px;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 36px;
+    align-items: center;
+  }
+  .flyer .pitch .quote {
+    font-family: 'Poiret One', sans-serif;
+    font-size: 26px;
+    line-height: 1.25;
+    color: var(--teal-deep);
+    letter-spacing: 0.01em;
+    font-style: italic;
+  }
+  .flyer .pitch .quote b {
+    font-family: 'Limelight', serif;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--coral);
+    letter-spacing: 0;
+  }
+  .flyer .pitch .stamp {
+    width: 150px; height: 150px;
+    margin-left: auto;
+    border: 2px solid var(--teal-deep);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    position: relative;
+    background: var(--gold);
+  }
+  .flyer .pitch .stamp::before {
+    content: ''; position: absolute; inset: 8px; border: 1px solid var(--teal-deep); border-radius: 50%;
+  }
+  .flyer .pitch .stamp .inner {
+    font-family: 'Limelight', serif;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+  .flyer .pitch .stamp .big { display: block; font-size: 36px; margin-top: 4px; }
+  .flyer .pitch .stamp .sm { display: block; font-size: 10px; letter-spacing: 0.28em; font-family: 'Major Mono Display', monospace; margin-top: 4px; }
+
+  /* Call strip (coral) */
+  .flyer .call {
+    background: var(--coral);
+    color: var(--cream);
+    padding: 22px 56px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px;
+    border-top: 2px solid var(--teal-deep);
+  }
+  .flyer .call .eyeb {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+  .flyer .call .phone {
+    font-family: 'Limelight', serif;
+    font-size: 48px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: var(--cream);
+    text-transform: uppercase;
+  }
+  .flyer .call .contact {
+    text-align: right;
+    font-family: 'Poiret One', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
+  .flyer .call .qr {
+    width: 92px; height: 92px;
+    background: var(--cream);
+    padding: 6px;
+    border-radius: 4px;
+  }
+  .flyer .call .qr svg { display:block; }
+
+  /* Footer rail */
+  .flyer .foot-rail {
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Major Mono Display', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    background: var(--cream);
+  }
+  .flyer .foot-rail .dash { flex: 1; height: 1px; background: var(--teal-deep); margin: 0 16px; opacity: 0.4; }
+
+  /* =========================================================
+     BUSINESS CARD  — 3.5 × 2 in @ 96 DPI = 336 × 192, with bleed we draw 360 × 216
+     We draw at 2x for display crispness — 672 × 384
+     ========================================================= */
+  .card {
+    width: 672px; height: 384px;
+    position: relative;
+  }
+  .card.front {
+    background: var(--cream);
+    color: var(--teal-deep);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+  }
+  .card.front .left {
+    background: var(--teal-deep);
+    color: var(--cream);
+    padding: 28px 22px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .card.front .left .rays {
+    position: absolute;
+    bottom: -60px; left: 50%;
+    width: 340px; height: 340px;
+    transform: translateX(-50%);
+    color: var(--gold);
+    opacity: 0.55;
+  }
+  .card.front .left .eyebrow {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative; z-index: 2;
+  }
+  .card.front .left .soflo {
+    font-family: 'Limelight', serif;
+    font-size: 76px;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--cream);
+    position: relative; z-index: 2;
+  }
+  .card.front .left .under {
+    font-family: 'Poiret One', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    position: relative; z-index: 2;
+  }
+  .card.front .left .drop {
+    width: 10px; height: 14px;
+    background: var(--coral);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: absolute; right: 20px; top: 20px;
+    box-shadow: inset -2px -2px 3px rgba(11,42,52,0.3);
+  }
+  .card.front .right {
+    padding: 28px 24px 22px;
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-left: 1px solid rgba(11,42,52,0.15);
+  }
+  .card.front .right .hdr {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    color: var(--coral);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--teal-deep);
+    padding-bottom: 10px;
+  }
+  .card.front .right .name {
+    font-family: 'Limelight', serif;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    letter-spacing: 0.01em;
+    line-height: 1;
+    margin-top: 16px;
+  }
+  .card.front .right .title {
+    font-family: 'Poiret One', sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    color: var(--coral);
+    margin-top: 4px;
+  }
+  .card.front .right .sep {
+    height: 1px; background: var(--teal-deep); opacity: 0.4; margin: 16px 0;
+  }
+  .card.front .right .contact {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--teal-deep);
+  }
+  .card.front .right .contact .row { display: flex; gap: 8px; align-items: baseline; }
+  .card.front .right .contact .lbl {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 8px;
+    letter-spacing: 0.24em;
+    color: var(--gold);
+    text-transform: uppercase;
+    min-width: 48px;
+  }
+  .card.front .right .foot {
+    font-family: 'Major Mono Display', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    opacity: 0.55;
+    margin-top: 12px;
+  }
+
+  /* Back */
+  .card.back {
+    background: var(--coral);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card.back .rays {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 640px; height: 640px;
+    transform: translate(-50%,-50%);
+    color: var(--cream);
+    opacity: 0.22;
+  }
+  .card.back .inner {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 40px;
+  }
+  .card.back .inner .lim {
+    font-family: 'Limelight', serif;
+    font-size: 68px;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+  }
+  .card.back .inner .lim em {
+    font-family: 'Poiret One', sans-serif;
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+    font-size: 0.55em;
+    letter-spacing: 0.08em;
+  }
+  .card.back .inner .tag {
+    margin-top: 18px;
+    font-family: 'Major Mono Display', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.9;
+  }
+  .card.back .corners::before,
+  .card.back .corners::after {
+    content: '';
+    position: absolute;
+    width: 50px; height: 50px;
+    border: 2px solid var(--cream);
+    opacity: 0.7;
+  }
+  .card.back .corners::before { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+  .card.back .corners::after  { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+
+  /* small + print overrides */
+  @media print {
+    html, body { background: #fff; }
+    .dc-canvas, .dc-ui, .dc-focus-overlay, .dc-section-head { display: none !important; }
+    .print-only { display: block !important; }
+  }
+  .print-only { display: none; }
+
+  /* Print page container — stacks all assets one-per-page */
+  .print-only { background: #fff; }
+  .print-only .page {
+    page-break-after: always;
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; min-height: 100vh;
+  }
+  .print-only .page.card-page {
+    flex-direction: column; gap: 24px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Shared SVG defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- Art-deco rays -->
+    <g id="deco-rays">
+      <!-- 18 rays -->
+      <g>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(0)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(10)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(20)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(30)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(40)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(50)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(60)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(70)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(80)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-10)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-20)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-30)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-40)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-50)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-60)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-70)"/>
+        <rect x="-5" y="-400" width="10" height="200" fill="currentColor" transform="rotate(-80)"/>
+      </g>
+      <!-- rings -->
+      <circle cx="0" cy="0" r="130" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="0" cy="0" r="90" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="55" fill="none" stroke="currentColor" stroke-width="1"/>
+    </g>
+
+    <!-- Palm silhouette -->
+    <g id="palm-deco">
+      <path d="M94 340 Q 98 260 104 180 Q 106 120 114 60 L 122 60 Q 116 120 114 180 Q 108 260 104 340 Z" fill="currentColor"/>
+      <path d="M118 62 Q 80 40 20 50 Q 70 58 110 72 Z" fill="currentColor"/>
+      <path d="M118 58 Q 90 20 50 0 Q 100 30 118 62 Z" fill="currentColor"/>
+      <path d="M118 60 Q 140 30 180 20 Q 150 40 120 70 Z" fill="currentColor"/>
+      <path d="M120 64 Q 160 60 200 80 Q 160 70 122 76 Z" fill="currentColor"/>
+      <path d="M116 68 Q 90 80 40 100 Q 90 78 118 72 Z" fill="currentColor"/>
+      <path d="M120 70 Q 150 90 190 120 Q 150 80 124 76 Z" fill="currentColor"/>
+      <circle cx="116" cy="68" r="4" fill="currentColor"/>
+      <circle cx="122" cy="66" r="3.5" fill="currentColor"/>
+      <circle cx="119" cy="72" r="3" fill="currentColor"/>
+    </g>
+
+    <!-- Surfer on jet — reused, same as site -->
+    <g id="surfer-jet">
+      <linearGradient id="sjGrad" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#F5EAD2" stop-opacity="0.95"/>
+        <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="#F5EAD2" stop-opacity="0.5"/>
+      </linearGradient>
+      <linearGradient id="sjCore" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      </linearGradient>
+
+      <!-- wand -->
+      <g transform="translate(18 198) rotate(-32)">
+        <path d="M -10 14 Q -30 30 -50 18" stroke="#0B2A34" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.85"/>
+        <rect x="-14" y="2" width="34" height="18" rx="3" fill="#0B2A34"/>
+        <rect x="-10" y="20" width="10" height="14" rx="2" fill="#0B2A34"/>
+        <path d="M -2 20 L -6 30 L 2 30 L 0 20 Z" fill="#0B2A34"/>
+        <rect x="20" y="6" width="62" height="10" rx="2" fill="#0B2A34"/>
+        <rect x="32" y="6" width="2" height="10" fill="#D6A84E"/>
+        <rect x="60" y="6" width="2" height="10" fill="#D6A84E"/>
+        <polygon points="82,6 92,11 82,16" fill="#D6A84E"/>
+      </g>
+
+      <path d="M 98 118 Q 150 40 230 70 Q 265 84 295 150" stroke="url(#sjGrad)" stroke-width="22" fill="none" stroke-linecap="round" opacity="0.55"/>
+      <path d="M 100 120 Q 150 48 225 75 Q 260 90 292 150" stroke="url(#sjGrad)" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.9"/>
+      <path d="M 102 122 Q 150 55 222 80 Q 256 94 288 150" stroke="url(#sjCore)" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+      <g fill="#F5EAD2">
+        <circle cx="120" cy="95" r="2.5"/>
+        <circle cx="145" cy="70" r="1.8"/>
+        <circle cx="170" cy="58" r="2.2"/>
+        <circle cx="195" cy="62" r="1.6"/>
+        <circle cx="215" cy="70" r="2"/>
+        <circle cx="240" cy="90" r="1.8"/>
+        <circle cx="260" cy="112" r="2.3"/>
+        <circle cx="278" cy="132" r="1.5"/>
+      </g>
+
+      <g fill="#0B2A34">
+        <g transform="translate(180 58) rotate(-8)">
+          <ellipse cx="0" cy="0" rx="34" ry="4"/>
+          <rect x="-28" y="-1" width="56" height="1" fill="#D6A84E" opacity="0.8"/>
+        </g>
+        <path d="M 173 56 Q 171 46 173 34 L 179 34 Q 179 46 179 56 Z"/>
+        <path d="M 183 55 Q 187 44 189 34 L 195 35 Q 195 46 191 57 Z"/>
+        <path d="M 170 34 Q 168 22 176 12 L 192 14 Q 196 26 194 36 Z"/>
+        <path d="M 174 18 Q 162 12 156 -2 L 160 -4 Q 172 6 180 16 Z"/>
+        <path d="M 192 20 Q 204 22 214 14 L 214 18 Q 206 26 192 28 Z"/>
+        <circle cx="184" cy="6" r="6.5"/>
+        <path d="M 178 2 Q 172 -2 175 -6 Q 180 -2 182 4 Z"/>
+      </g>
+    </g>
+  </defs>
+</svg>
+
+<div id="root"></div>
+
+<!-- Print-only linear layout -->
+<div class="print-only" id="print-only"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+
+// DesignCanvas.jsx — Figma-ish design canvas wrapper
+// Warm gray grid bg + Sections + Artboards + PostIt notes.
+// Artboards are reorderable (grip-drag), labels/titles are inline-editable,
+// and any artboard can be opened in a fullscreen focus overlay (←/→/Esc).
+// State persists to a .design-canvas.state.json sidecar via the host
+// bridge. No assets, no deps.
+//
+// Usage:
+//   <DesignCanvas>
+//     <DCSection id="onboarding" title="Onboarding" subtitle="First-run variants">
+//       <DCArtboard id="a" label="A · Dusk" width={260} height={480}>…</DCArtboard>
+//       <DCArtboard id="b" label="B · Minimal" width={260} height={480}>…</DCArtboard>
+//     </DCSection>
+//   </DesignCanvas>
+
+const DC = {
+  bg: '#f0eee9',
+  grid: 'rgba(0,0,0,0.06)',
+  label: 'rgba(60,50,40,0.7)',
+  title: 'rgba(40,30,20,0.85)',
+  subtitle: 'rgba(60,50,40,0.6)',
+  postitBg: '#fef4a8',
+  postitText: '#5a4a2a',
+  font: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif',
+};
+
+// One-time CSS injection (classes are dc-prefixed so they don't collide with
+// the hosted design's own styles).
+if (typeof document !== 'undefined' && !document.getElementById('dc-styles')) {
+  const s = document.createElement('style');
+  s.id = 'dc-styles';
+  s.textContent = [
+    '.dc-editable{cursor:text;outline:none;white-space:nowrap;border-radius:3px;padding:0 2px;margin:0 -2px}',
+    '.dc-editable:focus{background:#fff;box-shadow:0 0 0 1.5px #c96442}',
+    '[data-dc-slot]{transition:transform .18s cubic-bezier(.2,.7,.3,1)}',
+    '[data-dc-slot].dc-dragging{transition:none;z-index:10;pointer-events:none}',
+    '[data-dc-slot].dc-dragging .dc-card{box-shadow:0 12px 40px rgba(0,0,0,.25),0 0 0 2px #c96442;transform:scale(1.02)}',
+    '.dc-card{transition:box-shadow .15s,transform .15s}',
+    '.dc-card *{scrollbar-width:none}',
+    '.dc-card *::-webkit-scrollbar{display:none}',
+    '.dc-labelrow{display:flex;align-items:center;gap:4px;height:24px}',
+    '.dc-grip{cursor:grab;display:flex;align-items:center;padding:5px 4px;border-radius:4px;transition:background .12s}',
+    '.dc-grip:hover{background:rgba(0,0,0,.08)}',
+    '.dc-grip:active{cursor:grabbing}',
+    '.dc-labeltext{cursor:pointer;border-radius:4px;padding:3px 6px;display:flex;align-items:center;transition:background .12s}',
+    '.dc-labeltext:hover{background:rgba(0,0,0,.05)}',
+    '.dc-expand{position:absolute;bottom:100%;right:0;margin-bottom:5px;z-index:2;opacity:0;transition:opacity .12s,background .12s;',
+    '  width:22px;height:22px;border-radius:5px;border:none;cursor:pointer;padding:0;',
+    '  background:transparent;color:rgba(60,50,40,.7);display:flex;align-items:center;justify-content:center}',
+    '.dc-expand:hover{background:rgba(0,0,0,.06);color:#2a251f}',
+    '[data-dc-slot]:hover .dc-expand{opacity:1}',
+  ].join('\n');
+  document.head.appendChild(s);
+}
+
+const DCCtx = React.createContext(null);
+
+// ─────────────────────────────────────────────────────────────
+// DesignCanvas — stateful wrapper around the pan/zoom viewport.
+// Owns runtime state (per-section order, renamed titles/labels, focused
+// artboard). Order/titles/labels persist to a .design-canvas.state.json
+// sidecar next to the HTML. Reads go via plain fetch() so the saved
+// arrangement is visible anywhere the HTML + sidecar are served together
+// (omelette preview, direct link, downloaded zip). Writes go through the
+// host's window.omelette bridge — editing requires the omelette runtime.
+// Focus is ephemeral.
+// ─────────────────────────────────────────────────────────────
+const DC_STATE_FILE = '.design-canvas.state.json';
+
+function DesignCanvas({ children, minScale, maxScale, style }) {
+  const [state, setState] = React.useState({ sections: {}, focus: null });
+  // Hold rendering until the sidecar read settles so the saved order/titles
+  // appear on first paint (no source-order flash). didRead gates writes until
+  // the read settles so the empty initial state can't clobber a slow read;
+  // skipNextWrite suppresses the one echo-write that would otherwise follow
+  // hydration.
+  const [ready, setReady] = React.useState(false);
+  const didRead = React.useRef(false);
+  const skipNextWrite = React.useRef(false);
+
+  React.useEffect(() => {
+    let off = false;
+    fetch('./' + DC_STATE_FILE)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((saved) => {
+        if (off || !saved || !saved.sections) return;
+        skipNextWrite.current = true;
+        setState((s) => ({ ...s, sections: saved.sections }));
+      })
+      .catch(() => {})
+      .finally(() => { didRead.current = true; if (!off) setReady(true); });
+    const t = setTimeout(() => { if (!off) setReady(true); }, 150);
+    return () => { off = true; clearTimeout(t); };
+  }, []);
+
+  React.useEffect(() => {
+    if (!didRead.current) return;
+    if (skipNextWrite.current) { skipNextWrite.current = false; return; }
+    const t = setTimeout(() => {
+      window.omelette?.writeFile(DC_STATE_FILE, JSON.stringify({ sections: state.sections })).catch(() => {});
+    }, 250);
+    return () => clearTimeout(t);
+  }, [state.sections]);
+
+  // Build registries synchronously from children so FocusOverlay can read
+  // them in the same render. Only direct DCSection > DCArtboard children are
+  // walked — wrapping them in other elements opts out of focus/reorder.
+  const registry = {};     // slotId -> { sectionId, artboard }
+  const sectionMeta = {};  // sectionId -> { title, subtitle, slotIds[] }
+  const sectionOrder = [];
+  React.Children.forEach(children, (sec) => {
+    if (!sec || sec.type !== DCSection) return;
+    const sid = sec.props.id ?? sec.props.title;
+    if (!sid) return;
+    sectionOrder.push(sid);
+    const persisted = state.sections[sid] || {};
+    const srcIds = [];
+    React.Children.forEach(sec.props.children, (ab) => {
+      if (!ab || ab.type !== DCArtboard) return;
+      const aid = ab.props.id ?? ab.props.label;
+      if (!aid) return;
+      registry[`${sid}/${aid}`] = { sectionId: sid, artboard: ab };
+      srcIds.push(aid);
+    });
+    const kept = (persisted.order || []).filter((k) => srcIds.includes(k));
+    sectionMeta[sid] = {
+      title: persisted.title ?? sec.props.title,
+      subtitle: sec.props.subtitle,
+      slotIds: [...kept, ...srcIds.filter((k) => !kept.includes(k))],
+    };
+  });
+
+  const api = React.useMemo(() => ({
+    state,
+    section: (id) => state.sections[id] || {},
+    patchSection: (id, p) => setState((s) => ({
+      ...s,
+      sections: { ...s.sections, [id]: { ...s.sections[id], ...(typeof p === 'function' ? p(s.sections[id] || {}) : p) } },
+    })),
+    setFocus: (slotId) => setState((s) => ({ ...s, focus: slotId })),
+  }), [state]);
+
+  // Esc exits focus; any outside pointerdown commits an in-progress rename.
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') api.setFocus(null); };
+    const onPd = (e) => {
+      const ae = document.activeElement;
+      if (ae && ae.isContentEditable && !ae.contains(e.target)) ae.blur();
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('pointerdown', onPd, true);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('pointerdown', onPd, true);
+    };
+  }, [api]);
+
+  return (
+    <DCCtx.Provider value={api}>
+      <DCViewport minScale={minScale} maxScale={maxScale} style={style}>{ready && children}</DCViewport>
+      {state.focus && registry[state.focus] && (
+        <DCFocusOverlay entry={registry[state.focus]} sectionMeta={sectionMeta} sectionOrder={sectionOrder} />
+      )}
+    </DCCtx.Provider>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// DCViewport — transform-based pan/zoom (internal)
+//
+// Input mapping (Figma-style):
+//   • trackpad pinch  → zoom   (ctrlKey wheel; Safari gesture* events)
+//   • trackpad scroll → pan    (two-finger)
+//   • mouse wheel     → zoom   (notched; distinguished from trackpad scroll)
+//   • middle-drag / primary-drag-on-bg → pan
+//
+// Transform state lives in a ref and is written straight to the DOM
+// (translate3d + will-change) so wheel ticks don't go through React —
+// keeps pans at 60fps on dense canvases.
+// ─────────────────────────────────────────────────────────────
+function DCViewport({ children, minScale = 0.1, maxScale = 8, style = {} }) {
+  const vpRef = React.useRef(null);
+  const worldRef = React.useRef(null);
+  const tf = React.useRef({ x: 0, y: 0, scale: 1 });
+
+  const apply = React.useCallback(() => {
+    const { x, y, scale } = tf.current;
+    const el = worldRef.current;
+    if (el) el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+  }, []);
+
+  React.useEffect(() => {
+    const vp = vpRef.current;
+    if (!vp) return;
+
+    const zoomAt = (cx, cy, factor) => {
+      const r = vp.getBoundingClientRect();
+      const px = cx - r.left, py = cy - r.top;
+      const t = tf.current;
+      const next = Math.min(maxScale, Math.max(minScale, t.scale * factor));
+      const k = next / t.scale;
+      // keep the world point under the cursor fixed
+      t.x = px - (px - t.x) * k;
+      t.y = py - (py - t.y) * k;
+      t.scale = next;
+      apply();
+    };
+
+    // Mouse-wheel vs trackpad-scroll heuristic. A physical wheel sends
+    // line-mode deltas (Firefox) or large integer pixel deltas with no X
+    // component (Chrome/Safari, typically multiples of 100/120). Trackpad
+    // two-finger scroll sends small/fractional pixel deltas, often with
+    // non-zero deltaX. ctrlKey is set by the browser for trackpad pinch.
+    const isMouseWheel = (e) =>
+      e.deltaMode !== 0 ||
+      (e.deltaX === 0 && Number.isInteger(e.deltaY) && Math.abs(e.deltaY) >= 40);
+
+    const onWheel = (e) => {
+      e.preventDefault();
+      if (isGesturing) return; // Safari: gesture* owns the pinch — discard concurrent wheels
+      if (e.ctrlKey) {
+        // trackpad pinch (or explicit ctrl+wheel)
+        zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.01));
+      } else if (isMouseWheel(e)) {
+        // notched mouse wheel — fixed-ratio step per click
+        zoomAt(e.clientX, e.clientY, Math.exp(-Math.sign(e.deltaY) * 0.18));
+      } else {
+        // trackpad two-finger scroll — pan
+        tf.current.x -= e.deltaX;
+        tf.current.y -= e.deltaY;
+        apply();
+      }
+    };
+
+    // Safari sends native gesture* events for trackpad pinch with a smooth
+    // e.scale; preferring these over the ctrl+wheel fallback gives a much
+    // better feel there. No-ops on other browsers. Safari also fires
+    // ctrlKey wheel events during the same pinch — isGesturing makes
+    // onWheel drop those entirely so they neither zoom nor pan.
+    let gsBase = 1;
+    let isGesturing = false;
+    const onGestureStart = (e) => { e.preventDefault(); isGesturing = true; gsBase = tf.current.scale; };
+    const onGestureChange = (e) => {
+      e.preventDefault();
+      zoomAt(e.clientX, e.clientY, (gsBase * e.scale) / tf.current.scale);
+    };
+    const onGestureEnd = (e) => { e.preventDefault(); isGesturing = false; };
+
+    // Drag-pan: middle button anywhere, or primary button on canvas
+    // background (anything that isn't an artboard or an inline editor).
+    let drag = null;
+    const onPointerDown = (e) => {
+      const onBg = !e.target.closest('[data-dc-slot], .dc-editable');
+      if (!(e.button === 1 || (e.button === 0 && onBg))) return;
+      e.preventDefault();
+      vp.setPointerCapture(e.pointerId);
+      drag = { id: e.pointerId, lx: e.clientX, ly: e.clientY };
+      vp.style.cursor = 'grabbing';
+    };
+    const onPointerMove = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      tf.current.x += e.clientX - drag.lx;
+      tf.current.y += e.clientY - drag.ly;
+      drag.lx = e.clientX; drag.ly = e.clientY;
+      apply();
+    };
+    const onPointerUp = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      vp.releasePointerCapture(e.pointerId);
+      drag = null;
+      vp.style.cursor = '';
+    };
+
+    vp.addEventListener('wheel', onWheel, { passive: false });
+    vp.addEventListener('gesturestart', onGestureStart, { passive: false });
+    vp.addEventListener('gesturechange', onGestureChange, { passive: false });
+    vp.addEventListener('gestureend', onGestureEnd, { passive: false });
+    vp.addEventListener('pointerdown', onPointerDown);
+    vp.addEventListener('pointermove', onPointerMove);
+    vp.addEventListener('pointerup', onPointerUp);
+    vp.addEventListener('pointercancel', onPointerUp);
+    return () => {
+      vp.removeEventListener('wheel', onWheel);
+      vp.removeEventListener('gesturestart', onGestureStart);
+      vp.removeEventListener('gesturechange', onGestureChange);
+      vp.removeEventListener('gestureend', onGestureEnd);
+      vp.removeEventListener('pointerdown', onPointerDown);
+      vp.removeEventListener('pointermove', onPointerMove);
+      vp.removeEventListener('pointerup', onPointerUp);
+      vp.removeEventListener('pointercancel', onPointerUp);
+    };
+  }, [apply, minScale, maxScale]);
+
+  const gridSvg = `url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M120 0H0v120' fill='none' stroke='${encodeURIComponent(DC.grid)}' stroke-width='1'/%3E%3C/svg%3E")`;
+  return (
+    <div
+      ref={vpRef}
+      className="design-canvas"
+      style={{
+        height: '100vh', width: '100vw',
+        background: DC.bg,
+        overflow: 'hidden',
+        overscrollBehavior: 'none',
+        touchAction: 'none',
+        position: 'relative',
+        fontFamily: DC.font,
+        boxSizing: 'border-box',
+        ...style,
+      }}
+    >
+      <div
+        ref={worldRef}
+        style={{
+          position: 'absolute', top: 0, left: 0,
+          transformOrigin: '0 0',
+          willChange: 'transform',
+          width: 'max-content', minWidth: '100%',
+          minHeight: '100%',
+          padding: '60px 0 80px',
+        }}
+      >
+        <div style={{ position: 'absolute', inset: -6000, backgroundImage: gridSvg, backgroundSize: '120px 120px', pointerEvents: 'none', zIndex: -1 }} />
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// DCSection — editable title + h-row of artboards in persisted order
+// ─────────────────────────────────────────────────────────────
+function DCSection({ id, title, subtitle, children, gap = 48 }) {
+  const ctx = React.useContext(DCCtx);
+  const sid = id ?? title;
+  const all = React.Children.toArray(children);
+  const artboards = all.filter((c) => c && c.type === DCArtboard);
+  const rest = all.filter((c) => !(c && c.type === DCArtboard));
+  const srcOrder = artboards.map((a) => a.props.id ?? a.props.label);
+  const sec = (ctx && sid && ctx.section(sid)) || {};
+
+  const order = React.useMemo(() => {
+    const kept = (sec.order || []).filter((k) => srcOrder.includes(k));
+    return [...kept, ...srcOrder.filter((k) => !kept.includes(k))];
+  }, [sec.order, srcOrder.join('|')]);
+
+  const byId = Object.fromEntries(artboards.map((a) => [a.props.id ?? a.props.label, a]));
+
+  return (
+    <div data-dc-section={sid} style={{ marginBottom: 80, position: 'relative' }}>
+      <div style={{ padding: '0 60px 56px' }}>
+        <DCEditable tag="div" value={sec.title ?? title}
+          onChange={(v) => ctx && sid && ctx.patchSection(sid, { title: v })}
+          style={{ fontSize: 28, fontWeight: 600, color: DC.title, letterSpacing: -0.4, marginBottom: 6, display: 'inline-block' }} />
+        {subtitle && <div style={{ fontSize: 16, color: DC.subtitle }}>{subtitle}</div>}
+      </div>
+      <div style={{ display: 'flex', gap, padding: '0 60px', alignItems: 'flex-start', width: 'max-content' }}>
+        {order.map((k) => (
+          <DCArtboardFrame key={k} sectionId={sid} artboard={byId[k]} order={order}
+            label={(sec.labels || {})[k] ?? byId[k].props.label}
+            onRename={(v) => ctx && ctx.patchSection(sid, (x) => ({ labels: { ...x.labels, [k]: v } }))}
+            onReorder={(next) => ctx && ctx.patchSection(sid, { order: next })}
+            onFocus={() => ctx && ctx.setFocus(`${sid}/${k}`)} />
+        ))}
+      </div>
+      {rest}
+    </div>
+  );
+}
+
+// DCArtboard — marker; rendered by DCArtboardFrame via DCSection.
+function DCArtboard() { return null; }
+
+function DCArtboardFrame({ sectionId, artboard, label, order, onRename, onReorder, onFocus }) {
+  const { id: rawId, label: rawLabel, width = 260, height = 480, children, style = {} } = artboard.props;
+  const id = rawId ?? rawLabel;
+  const ref = React.useRef(null);
+
+  // Live drag-reorder: dragged card sticks to cursor; siblings slide into
+  // their would-be slots in real time via transforms. DOM order only
+  // changes on drop.
+  const onGripDown = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    const me = ref.current;
+    // translateX is applied in local (pre-scale) space but pointer deltas and
+    // getBoundingClientRect().left are screen-space — divide by the viewport's
+    // current scale so the dragged card tracks the cursor at any zoom level.
+    const scale = me.getBoundingClientRect().width / me.offsetWidth || 1;
+    const peers = Array.from(document.querySelectorAll(`[data-dc-section="${sectionId}"] [data-dc-slot]`));
+    const homes = peers.map((el) => ({ el, id: el.dataset.dcSlot, x: el.getBoundingClientRect().left }));
+    const slotXs = homes.map((h) => h.x);
+    const startIdx = order.indexOf(id);
+    const startX = e.clientX;
+    let liveOrder = order.slice();
+    me.classList.add('dc-dragging');
+
+    const layout = () => {
+      for (const h of homes) {
+        if (h.id === id) continue;
+        const slot = liveOrder.indexOf(h.id);
+        h.el.style.transform = `translateX(${(slotXs[slot] - h.x) / scale}px)`;
+      }
+    };
+
+    const move = (ev) => {
+      const dx = ev.clientX - startX;
+      me.style.transform = `translateX(${dx / scale}px)`;
+      const cur = homes[startIdx].x + dx;
+      let nearest = 0, best = Infinity;
+      for (let i = 0; i < slotXs.length; i++) {
+        const d = Math.abs(slotXs[i] - cur);
+        if (d < best) { best = d; nearest = i; }
+      }
+      if (liveOrder.indexOf(id) !== nearest) {
+        liveOrder = order.filter((k) => k !== id);
+        liveOrder.splice(nearest, 0, id);
+        layout();
+      }
+    };
+
+    const up = () => {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+      const finalSlot = liveOrder.indexOf(id);
+      me.classList.remove('dc-dragging');
+      me.style.transform = `translateX(${(slotXs[finalSlot] - homes[startIdx].x) / scale}px)`;
+      // After the settle transition, kill transitions + clear transforms +
+      // commit the reorder in the same frame so there's no visual snap-back.
+      setTimeout(() => {
+        for (const h of homes) { h.el.style.transition = 'none'; h.el.style.transform = ''; }
+        if (liveOrder.join('|') !== order.join('|')) onReorder(liveOrder);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          for (const h of homes) h.el.style.transition = '';
+        }));
+      }, 180);
+    };
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+  };
+
+  return (
+    <div ref={ref} data-dc-slot={id} style={{ position: 'relative', flexShrink: 0 }}>
+      <div className="dc-labelrow" style={{ position: 'absolute', bottom: '100%', left: -4, marginBottom: 4, color: DC.label }}>
+        <div className="dc-grip" onPointerDown={onGripDown} title="Drag to reorder">
+          <svg width="9" height="13" viewBox="0 0 9 13" fill="currentColor"><circle cx="2" cy="2" r="1.1"/><circle cx="7" cy="2" r="1.1"/><circle cx="2" cy="6.5" r="1.1"/><circle cx="7" cy="6.5" r="1.1"/><circle cx="2" cy="11" r="1.1"/><circle cx="7" cy="11" r="1.1"/></svg>
+        </div>
+        <div className="dc-labeltext" onClick={onFocus} title="Click to focus">
+          <DCEditable value={label} onChange={onRename} onClick={(e) => e.stopPropagation()}
+            style={{ fontSize: 15, fontWeight: 500, color: DC.label, lineHeight: 1 }} />
+        </div>
+      </div>
+      <button className="dc-expand" onClick={onFocus} onPointerDown={(e) => e.stopPropagation()} title="Focus">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M7 1h4v4M5 11H1V7M11 1L7.5 4.5M1 11l3.5-3.5"/></svg>
+      </button>
+      <div className="dc-card"
+        style={{ borderRadius: 2, boxShadow: '0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06)', overflow: 'hidden', width, height, background: '#fff', ...style }}>
+        {children || <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 13, fontFamily: DC.font }}>{id}</div>}
+      </div>
+    </div>
+  );
+}
+
+// Inline rename — commits on blur or Enter.
+function DCEditable({ value, onChange, style, tag = 'span', onClick }) {
+  const T = tag;
+  return (
+    <T className="dc-editable" contentEditable suppressContentEditableWarning
+      onClick={onClick}
+      onPointerDown={(e) => e.stopPropagation()}
+      onBlur={(e) => onChange && onChange(e.currentTarget.textContent)}
+      onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); } }}
+      style={style}>{value}</T>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Focus mode — overlay one artboard; ←/→ within section, ↑/↓ across
+// sections, Esc or backdrop click to exit.
+// ─────────────────────────────────────────────────────────────
+function DCFocusOverlay({ entry, sectionMeta, sectionOrder }) {
+  const ctx = React.useContext(DCCtx);
+  const { sectionId, artboard } = entry;
+  const sec = ctx.section(sectionId);
+  const meta = sectionMeta[sectionId];
+  const peers = meta.slotIds;
+  const aid = artboard.props.id ?? artboard.props.label;
+  const idx = peers.indexOf(aid);
+  const secIdx = sectionOrder.indexOf(sectionId);
+
+  const go = (d) => { const n = peers[(idx + d + peers.length) % peers.length]; if (n) ctx.setFocus(`${sectionId}/${n}`); };
+  const goSection = (d) => {
+    const ns = sectionOrder[(secIdx + d + sectionOrder.length) % sectionOrder.length];
+    const first = sectionMeta[ns] && sectionMeta[ns].slotIds[0];
+    if (first) ctx.setFocus(`${ns}/${first}`);
+  };
+
+  React.useEffect(() => {
+    const k = (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); goSection(-1); }
+      if (e.key === 'ArrowDown') { e.preventDefault(); goSection(1); }
+    };
+    document.addEventListener('keydown', k);
+    return () => document.removeEventListener('keydown', k);
+  });
+
+  const { width = 260, height = 480, children } = artboard.props;
+  const [vp, setVp] = React.useState({ w: window.innerWidth, h: window.innerHeight });
+  React.useEffect(() => { const r = () => setVp({ w: window.innerWidth, h: window.innerHeight }); window.addEventListener('resize', r); return () => window.removeEventListener('resize', r); }, []);
+  const scale = Math.max(0.1, Math.min((vp.w - 200) / width, (vp.h - 260) / height, 2));
+
+  const [ddOpen, setDd] = React.useState(false);
+  const Arrow = ({ dir, onClick }) => (
+    <button onClick={(e) => { e.stopPropagation(); onClick(); }}
+      style={{ position: 'absolute', top: '50%', [dir]: 28, transform: 'translateY(-50%)',
+        border: 'none', background: 'rgba(255,255,255,.08)', color: 'rgba(255,255,255,.9)',
+        width: 44, height: 44, borderRadius: 22, fontSize: 18, cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .15s' }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,.18)')}
+      onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <path d={dir === 'left' ? 'M11 3L5 9l6 6' : 'M7 3l6 6-6 6'} /></svg>
+    </button>
+  );
+
+  // Portal to body so position:fixed is the real viewport regardless of any
+  // transform on DesignCanvas's ancestors (including the canvas zoom itself).
+  return ReactDOM.createPortal(
+    <div onClick={() => ctx.setFocus(null)}
+      onWheel={(e) => e.preventDefault()}
+      style={{ position: 'fixed', inset: 0, zIndex: 100, background: 'rgba(24,20,16,.6)', backdropFilter: 'blur(14px)',
+        fontFamily: DC.font, color: '#fff' }}>
+
+      {/* top bar: section dropdown (left) · close (right) */}
+      <div onClick={(e) => e.stopPropagation()}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 72, display: 'flex', alignItems: 'flex-start', padding: '16px 20px 0', gap: 16 }}>
+        <div style={{ position: 'relative' }}>
+          <button onClick={() => setDd((o) => !o)}
+            style={{ border: 'none', background: 'transparent', color: '#fff', cursor: 'pointer', padding: '6px 8px',
+              borderRadius: 6, textAlign: 'left', fontFamily: 'inherit' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: -0.3 }}>{meta.title}</span>
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" style={{ opacity: .7 }}><path d="M2 4l3.5 3.5L9 4"/></svg>
+            </span>
+            {meta.subtitle && <span style={{ display: 'block', fontSize: 13, opacity: .6, fontWeight: 400, marginTop: 2 }}>{meta.subtitle}</span>}
+          </button>
+          {ddOpen && (
+            <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: 4, background: '#2a251f', borderRadius: 8,
+              boxShadow: '0 8px 32px rgba(0,0,0,.4)', padding: 4, minWidth: 200, zIndex: 10 }}>
+              {sectionOrder.map((sid) => (
+                <button key={sid} onClick={() => { setDd(false); const f = sectionMeta[sid].slotIds[0]; if (f) ctx.setFocus(`${sid}/${f}`); }}
+                  style={{ display: 'block', width: '100%', textAlign: 'left', border: 'none', cursor: 'pointer',
+                    background: sid === sectionId ? 'rgba(255,255,255,.1)' : 'transparent', color: '#fff',
+                    padding: '8px 12px', borderRadius: 5, fontSize: 14, fontWeight: sid === sectionId ? 600 : 400, fontFamily: 'inherit' }}>
+                  {sectionMeta[sid].title}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div style={{ flex: 1 }} />
+        <button onClick={() => ctx.setFocus(null)}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,.12)')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+          style={{ border: 'none', background: 'transparent', color: 'rgba(255,255,255,.7)', width: 32, height: 32,
+            borderRadius: 16, fontSize: 20, cursor: 'pointer', lineHeight: 1, transition: 'background .12s' }}>×</button>
+      </div>
+
+      {/* card centered, label + index below — only the card itself stops
+          propagation so any backdrop click (including the margins around
+          the card) exits focus */}
+      <div
+        style={{ position: 'absolute', top: 64, bottom: 56, left: 100, right: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
+        <div onClick={(e) => e.stopPropagation()} style={{ width: width * scale, height: height * scale, position: 'relative' }}>
+          <div style={{ width, height, transform: `scale(${scale})`, transformOrigin: 'top left', background: '#fff', borderRadius: 2, overflow: 'hidden',
+            boxShadow: '0 20px 80px rgba(0,0,0,.4)' }}>
+            {children || <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb' }}>{aid}</div>}
+          </div>
+        </div>
+        <div onClick={(e) => e.stopPropagation()} style={{ fontSize: 14, fontWeight: 500, opacity: .85, textAlign: 'center' }}>
+          {(sec.labels || {})[aid] ?? artboard.props.label}
+          <span style={{ opacity: .5, marginLeft: 10, fontVariantNumeric: 'tabular-nums' }}>{idx + 1} / {peers.length}</span>
+        </div>
+      </div>
+
+      <Arrow dir="left" onClick={() => go(-1)} />
+      <Arrow dir="right" onClick={() => go(1)} />
+
+      {/* dots */}
+      <div onClick={(e) => e.stopPropagation()}
+        style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8 }}>
+        {peers.map((p, i) => (
+          <button key={p} onClick={() => ctx.setFocus(`${sectionId}/${p}`)}
+            style={{ border: 'none', padding: 0, cursor: 'pointer', width: 6, height: 6, borderRadius: 3,
+              background: i === idx ? '#fff' : 'rgba(255,255,255,.3)' }} />
+        ))}
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Post-it — absolute-positioned sticky note
+// ─────────────────────────────────────────────────────────────
+function DCPostIt({ children, top, left, right, bottom, rotate = -2, width = 180 }) {
+  return (
+    <div style={{
+      position: 'absolute', top, left, right, bottom, width,
+      background: DC.postitBg, padding: '14px 16px',
+      fontFamily: '"Comic Sans MS", "Marker Felt", "Segoe Print", cursive',
+      fontSize: 14, lineHeight: 1.4, color: DC.postitText,
+      boxShadow: '0 2px 8px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)',
+      transform: `rotate(${rotate}deg)`,
+      zIndex: 5,
+    }}>{children}</div>
+  );
+}
+
+Object.assign(window, { DesignCanvas, DCSection, DCArtboard, DCPostIt });
+
+
+</script>
+<script type="text/babel">
+// Flyer + business card composition
+
+const Flyer = () => (
+  <div className="board flyer grain">
+    <div className="header-rail">
+      <div><span className="dot"></span>SoFlo · Underpressure</div>
+      <div>Miami · Fl · Ocean Drive Deco</div>
+      <div>Est. 2026</div>
+    </div>
+
+    <div className="headline">
+      <div className="eyebrow">Pressure Washing · Soft Washing · Roof Cleaning</div>
+      <h1>
+        <span>Miami</span>
+        <span className="under">Grime, meet</span>
+        <span className="pressure">your match</span>
+      </h1>
+    </div>
+
+    {/* Sunset scene */}
+    <div className="scene">
+      {/* rays behind sun */}
+      <svg className="rays" viewBox="-200 -200 400 400"><use href="#deco-rays"/></svg>
+
+      <div className="sun"></div>
+      <div className="sun-stripes"></div>
+      <div className="horizon"></div>
+      <div className="reflection"></div>
+
+      <svg className="palm l" viewBox="0 0 200 340" style={{ color: 'var(--teal-deep)' }}><use href="#palm-deco"/></svg>
+      <svg className="palm r" viewBox="0 0 200 340" style={{ color: 'var(--teal-deep)' }}><use href="#palm-deco"/></svg>
+
+      <svg className="surfer-scene" viewBox="0 0 320 220"><use href="#surfer-jet"/></svg>
+    </div>
+
+    {/* Services: 3 cols x 2 rows */}
+    <div className="services">
+      {[
+        ['01','Driveways','Tire marks, oil, moss — lifted. Concrete restored.'],
+        ['02','Pool Decks','Pavers, travertine, Chattahoochee. Bright again.'],
+        ['03','Roof Soft-Wash','Low-pressure treatment. Algae killed at the root.'],
+        ['04','Facades & Stucco','Salt spray and algae gone. Storefronts, condos.'],
+        ['05','Fleet & Boats','Hulls, trailers, work trucks. Marina or yard.'],
+        ['06','Rust Removal','Stains gone. No etching, no ghosting, no streaks.'],
+      ].map(([n, name, desc]) => (
+        <div className="svc" key={n}>
+          <div className="num">Service · {n}</div>
+          <div className="name">{name}</div>
+          <div className="desc">{desc}</div>
+        </div>
+      ))}
+    </div>
+
+    {/* Pitch + stamp */}
+    <div className="pitch">
+      <div className="quote">
+        One man. <b>Every job, personally.</b> No rushed crews, no streaks, no missed corners — just Miami surfaces, brought back to bright.
+      </div>
+      <div className="stamp">
+        <div className="inner">
+          <span className="sm">Free</span>
+          <span className="big">Quote</span>
+          <span className="sm">in 24 hrs</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Coral call strip */}
+    <div className="call">
+      <div>
+        <div className="eyeb">Call or text</div>
+        <div className="phone">786·498·0896</div>
+      </div>
+      <div className="contact">
+        <div style={{ fontFamily: "'Major Mono Display', monospace", fontSize: 10, letterSpacing: '0.28em', opacity: 0.85, marginBottom: 6 }}>Email</div>
+        <div>soflounderpressure<br/>@gmail.com</div>
+      </div>
+      <svg className="qr" viewBox="0 0 100 100" aria-hidden="true">
+        {/* Decorative QR placeholder pattern */}
+        <rect width="100" height="100" fill="#F5EAD2"/>
+        {/* finder patterns */}
+        <rect x="6" y="6" width="24" height="24" fill="#0B2A34"/>
+        <rect x="10" y="10" width="16" height="16" fill="#F5EAD2"/>
+        <rect x="13" y="13" width="10" height="10" fill="#0B2A34"/>
+        <rect x="70" y="6" width="24" height="24" fill="#0B2A34"/>
+        <rect x="74" y="10" width="16" height="16" fill="#F5EAD2"/>
+        <rect x="77" y="13" width="10" height="10" fill="#0B2A34"/>
+        <rect x="6" y="70" width="24" height="24" fill="#0B2A34"/>
+        <rect x="10" y="74" width="16" height="16" fill="#F5EAD2"/>
+        <rect x="13" y="77" width="10" height="10" fill="#0B2A34"/>
+        {/* data modules (decorative) */}
+        {Array.from({length: 60}).map((_, i) => {
+          // deterministic pseudo-random
+          const x = (i * 13) % 12;
+          const y = Math.floor((i * 13) / 12) % 12;
+          if ((x < 4 && y < 4) || (x > 7 && y < 4) || (x < 4 && y > 7)) return null;
+          const on = ((i * 37) % 7) > 2;
+          if (!on) return null;
+          return <rect key={i} x={6 + x*7} y={6 + y*7} width="5" height="5" fill="#0B2A34"/>;
+        })}
+      </svg>
+    </div>
+
+    <div className="foot-rail">
+      <span>soflounderpressure.com</span>
+      <span className="dash"></span>
+      <span>Licensed · Insured · Owner-operated</span>
+    </div>
+  </div>
+);
+
+const CardFront = () => (
+  <div className="board card front grain">
+    <div className="left">
+      <svg className="rays" viewBox="-200 -200 400 400"><use href="#deco-rays"/></svg>
+      <div className="drop"></div>
+      <div className="eyebrow">Ocean Drive · Est. 2026</div>
+      <div>
+        <div className="soflo">SoFlo</div>
+        <div className="under">UnderPressure</div>
+      </div>
+      <div style={{position:'relative', zIndex:2, fontFamily: "'Major Mono Display', monospace", fontSize: 8, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'var(--cream)', opacity: 0.7}}>
+        Miami · Fl
+      </div>
+    </div>
+    <div className="right">
+      <div className="hdr">Owner · Operator</div>
+      <div>
+        <div className="name">Adam Saullen</div>
+        <div className="title">Pressure Washing · Soft Wash</div>
+      </div>
+      <div className="sep"></div>
+      <div className="contact">
+        <div className="row"><span className="lbl">Call</span><span>786·498·0896</span></div>
+        <div className="row"><span className="lbl">Email</span><span>soflounderpressure@gmail.com</span></div>
+        <div className="row"><span className="lbl">Web</span><span>soflounderpressure.com</span></div>
+      </div>
+      <div className="foot">Licensed · Insured · 305</div>
+    </div>
+  </div>
+);
+
+const CardBack = () => (
+  <div className="board card back grain">
+    <svg className="rays" viewBox="-200 -200 400 400"><use href="#deco-rays"/></svg>
+    <div className="corners"></div>
+    <div className="inner">
+      <div className="lim">
+        One Man.
+        <em>Every job, personally.</em>
+      </div>
+      <div className="tag">Driveways · Pool decks · Roofs · Facades · Boats</div>
+    </div>
+  </div>
+);
+
+const App = () => (
+  <DesignCanvas>
+    <DCSection id="flyer" title="Flyer" subtitle="Letter · 8.5 × 11 in">
+      <DCArtboard id="flyer-1" label="A · Sunset Deco" width={816} height={1056}>
+        <Flyer />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection id="card" title="Business Card" subtitle="Standard US · 3.5 × 2 in · front & back">
+      <DCArtboard id="card-front" label="Front" width={672} height={384}>
+        <CardFront />
+      </DCArtboard>
+      <DCArtboard id="card-back" label="Back" width={672} height={384}>
+        <CardBack />
+      </DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+// Also render a print-only linear layout
+const printRoot = document.getElementById('print-only');
+if (printRoot) {
+  ReactDOM.createRoot(printRoot).render(
+    <React.Fragment>
+      <div className="page"><Flyer /></div>
+      <div className="page card-page">
+        <CardFront />
+        <CardBack />
+      </div>
+    </React.Fragment>
+  );
+}
+
+</script>
+</body>
+</html>
